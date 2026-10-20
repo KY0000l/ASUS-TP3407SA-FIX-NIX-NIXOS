@@ -4,17 +4,19 @@ NixOS module with fixes for the **ASUS Vivobook 14 Flip TP3407SA** (Intel Lunar 
 
 My Vivobook is poorly supported on NixOS, so I collected my changes into a module that others can use too. Every fix is its own switch, so you can enable only what you want.
 
-## Licensing
+## Licensing and credits
 
 The primary code in this repo (`.nix`, `.py`, etc.) is licensed under the GPLv3 (see `LICENSE`).
-The proprietary blob in `firmware/` is licensed under the Intel Simplified Software License (see `LICENSE.intel`) and is disclosed as such in accordance with that license.
+The proprietary blob in `firmware/` is licensed under the Intel Simplified Software License (see `LICENSE.intel`) and is disclosed as such in accordance with that license. It is only used by `tabletMode`.
+
+The speaker fix in `sound-fix/` is code by [Karso2023](https://github.com/Karso2023/vivobook_sound_fix), copied into this repo unmodified (GPLv3 per its README and PKGBUILD). See `sound-fix/NOTICE` for the exact origin. Nothing is fetched from outside this repo at build time, apart from the Rust crates listed in `sound-fix/Cargo.lock`.
 
 ## What it fixes
 
 | Option | What it does |
 | --- | --- |
 | `hardware.asusfix.npu.enable` | Intel NPU driver and firmware |
-| `hardware.asusfix.speaker.enable` | Speaker amplifier (TAS2781) firmware fix |
+| `hardware.asusfix.speaker.enable` | Speaker amplifier (TAS2781) fix, using the Rust tool in `sound-fix/` |
 | `hardware.asusfix.tabletMode.enable` | Tablet mode, auto-rotation and lid/hinge detection |
 | `hardware.asusfix.initrdXe.enable` | Loads the `xe` driver in the initrd to stop Plymouth DRM conflicts |
 | `hardware.asusfix.powerSaving.enable` | Power saving tweaks (ASPM, thermald, power-profiles-daemon, Wi-Fi powersave) |
@@ -23,7 +25,7 @@ The proprietary blob in `firmware/` is licensed under the Intel Simplified Softw
 
 Each individual option defaults to the value of `enableALLchanges`, so you can enable everything and opt out of single pieces.
 
-> **Unfree software:** `enableALLchanges = true` also sets `nixpkgs.config.allowUnfree = true` (as a default), because the firmware and NPU driver are unfree. If you are okay with that, enable it. If not, enable only the options you want and manage `allowUnfree` yourself.
+> **Unfree software:** `enableALLchanges = true` also sets `nixpkgs.config.allowUnfree = true` (as a default), because the NPU and GPU firmware are unfree redistributable firmware. If you are okay with that, enable it. If not, enable only the options you want and manage `allowUnfree` yourself. The speaker fix does not need unfree software.
 
 ## Usage (flakes)
 
@@ -97,6 +99,7 @@ The module uses your own `nixpkgs`, so you don't need `inputs.nixpkgs.follows`.
 
 ## Notes
 
+- **Speaker fix writes to the amplifier chips directly.** It runs at boot as a oneshot service (`asus-sound-fix.service`) and sends a fixed register sequence to the two TAS2781 chips over I2C, bypassing the kernel driver. It is made for the TP3407SA board; don't enable it on other models unless you know they match. Check it with `systemctl status asus-sound-fix`.
 - **Tablet mode switches your initrd to systemd.** The ISH firmware has to be inside the initrd, so `tabletMode.enable` sets `boot.initrd.systemd.enable = lib.mkDefault true`. If your LUKS setup depends on the scripted initrd, check it before enabling.
 - **Recent nixpkgs required.** `hardware.cpu.intel.npu.enable` only exists in recent nixpkgs; `nixos-unstable` is the safe choice.
 - **Kernel.** `enableALLchanges` selects `linuxPackages_latest` (as a default) since Lunar Lake needs a recent kernel. Override it with `boot.kernelPackages` if you want.

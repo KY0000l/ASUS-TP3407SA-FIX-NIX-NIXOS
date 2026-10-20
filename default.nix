@@ -30,7 +30,7 @@ in
     '';
 
     npu.enable          = feature "Intel NPU driver and firmware.";
-    speaker.enable      = feature "TAS2781 speaker amplifier firmware fix.";
+    speaker.enable      = feature "Speaker amplifier (TAS2781) fix, using the tool in sound-fix/.";
     tabletMode.enable   = feature "Tablet mode, auto-rotation and lid/hinge detection (ISH firmware, IIO sensors, virtual tablet switch).";
     initrdXe.enable     = feature "Load the xe driver in the initrd to avoid Plymouth/DRM conflicts.";
     powerSaving.enable  = feature "Power saving tweaks (ASPM, thermald, power-profiles-daemon, Wi-Fi powersave).";
