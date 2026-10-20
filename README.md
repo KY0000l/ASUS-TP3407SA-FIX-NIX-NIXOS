@@ -9,8 +9,6 @@ My Vivobook is poorly supported on NixOS, so I collected my changes into a modul
 The primary code in this repo (`.nix`, `.py`, etc.) is licensed under the GPLv3 (see `LICENSE`).
 The proprietary blob in `firmware/` is licensed under the Intel Simplified Software License (see `LICENSE.intel`) and is disclosed as such in accordance with that license. It is only used by `tabletMode`.
 
-The speaker fix in `sound-fix/` is code by [Karso2023](https://github.com/Karso2023/vivobook_sound_fix), copied into this repo unmodified (GPLv3 per its README and PKGBUILD). See `sound-fix/NOTICE` for the exact origin. Nothing is fetched from outside this repo at build time, apart from the Rust crates listed in `sound-fix/Cargo.lock`.
-
 ## What it fixes
 
 | Option | What it does |
