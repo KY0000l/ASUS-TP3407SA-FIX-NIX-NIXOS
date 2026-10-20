@@ -1,4 +1,7 @@
 # ASUS-TP3407SA-FIX-NIX-NIXOS
+
+The primary code in this repo (.nix .py .rs etc..) is licensed under the gplv3, the proprietary blob in firmware/ is licensed under the Intel Simplified Software License and is being disclosed as such in accordance with the license.
+
 My ASUS Vivobook is poorly supported on NixOS, I made these collections of changes and thought others may enjoy them as well.
 What options (when I add support)
 - NPU support
