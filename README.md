@@ -36,7 +36,7 @@ The proprietary blob in `firmware/` is licensed under the Intel Simplified Softw
 
 Each individual option defaults to the value of `enableALLchanges`, so you can enable everything and opt out of single pieces.
 
-> **Unfree software:** `enableALLchanges = true` also sets `nixpkgs.config.allowUnfree = true` (as a default), because the NPU and GPU firmware are unfree redistributable firmware. If you are okay with that, enable it. If not, enable only the options you want and manage `allowUnfree` yourself. The speaker fix does not need unfree software.
+> **Unfree software:** `enableALLchanges = true` also sets `nixpkgs.config.allowUnfree = true` (as a default), because the NPU and GPU firmware are unfree redistributable firmware. If you are okay with that, enable it. If not, enable only the options you want and manage `allowUnfree` yourself. The multimedia lock is not a fix and is not enabled by default and must be manually enabled with the option above.
 
 ## Usage (flakes)
 
