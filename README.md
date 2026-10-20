@@ -27,6 +27,7 @@ The proprietary blob in `firmware/` is licensed under the Intel Simplified Softw
 | --- | --- |
 | `hardware.asusfix.npu.enable` | Intel NPU driver and firmware |
 | `hardware.asusfix.speaker.enable` | Speaker amplifier (TAS2781) fix, using the Rust tool in `sound-fix/` |
+| `hardware.asusfix.fnlock.multimedia.enable` | Makes fnlock multimedia mode the default using `"asus_wmi.fnlock_default=0"` |
 | `hardware.asusfix.tabletMode.enable` | Tablet mode, auto-rotation and lid/hinge detection |
 | `hardware.asusfix.initrdXe.enable` | Loads the `xe` driver in the initrd to stop Plymouth DRM conflicts |
 | `hardware.asusfix.powerSaving.enable` | Power saving tweaks (ASPM, thermald, power-profiles-daemon, Wi-Fi powersave) |
