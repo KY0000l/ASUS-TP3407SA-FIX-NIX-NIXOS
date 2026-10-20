@@ -6,7 +6,7 @@ from evdev import UInput, ecodes as e
 # Measured on the TP3407SA: ~103 normal, ~177 flat, 336 tent, 360 tablet.
 ENTER = 300  # degrees: at or above this -> tablet mode
 EXIT = 270   # degrees: at or below this -> back to laptop mode
-POLL = 0.25  # seconds
+POLL = 0.2  # seconds
 
 
 def find_hinge():
