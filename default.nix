@@ -33,6 +33,21 @@ in
     npu.enable          = feature "Intel NPU driver and firmware.";
     speaker.enable      = feature "Speaker amplifier (TAS2781) fix, using the tool in sound-fix/.";
     tabletMode.enable   = feature "Tablet mode, auto-rotation and lid/hinge detection (ISH firmware, IIO sensors, virtual tablet switch).";
+    tabletMode.enterAngle = lib.mkOption {
+      type = lib.types.int;
+      default = 300;
+      description = "Hinge angle in degrees at or above which tablet mode turns on. (Measured: ~103 normal, ~177 flat, 336 tent, 360 tablet.)";
+    };
+    tabletMode.exitAngle = lib.mkOption {
+      type = lib.types.int;
+      default = 270;
+      description = "Hinge angle in degrees at or below which tablet mode turns off. Must be lower than enterAngle; the gap prevents flickering.";
+    };
+    tabletMode.pollIntervalMs = lib.mkOption {
+      type = lib.types.ints.positive;
+      default = 200;
+      description = "Milliseconds between hinge angle reads. Higher values use slightly less power.";
+    };
     initrdXe.enable     = feature "Load the xe driver in the initrd to avoid Plymouth/DRM conflicts.";
     powerSaving.enable  = feature "Power saving tweaks (ASPM, thermald, power-profiles-daemon, Wi-Fi powersave).";
     graphics.enable     = feature "Intel GPU acceleration (media driver, compute runtime, VPL).";

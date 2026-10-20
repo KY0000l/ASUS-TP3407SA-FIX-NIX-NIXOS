@@ -1,7 +1,21 @@
 { config, lib, pkgs, ... }:
 
 let
-  pythonEnv = pkgs.python3.withPackages (ps: [ ps.evdev ]);
+  cfg = config.hardware.asusfix.tabletMode;
+
+  # Source lives in ./hinge-tablet-mode (no crate dependencies).
+  hingeTabletMode = pkgs.rustPlatform.buildRustPackage {
+    pname = "hinge-tablet-mode";
+    version = "0.1.0";
+    src = lib.cleanSource ./hinge-tablet-mode;
+    cargoLock.lockFile = ./hinge-tablet-mode/Cargo.lock;
+    meta = {
+      description = "Virtual SW_TABLET_MODE switch driven by the IIO hinge angle";
+      license = lib.licenses.gpl3Only;
+      mainProgram = "hinge-tablet-mode";
+      platforms = [ "x86_64-linux" ];
+    };
+  };
 
   # Model-specific ISH firmware. The kernel requests
   #   intel/ish/ish_lnlm_<vendor crc32>_<product name crc32>.bin
@@ -13,7 +27,12 @@ let
        $out/lib/firmware/intel/ish/ish_lnlm_ef534c00_a5460864.bin
   '';
 in
-lib.mkIf config.hardware.asusfix.tabletMode.enable {
+lib.mkIf cfg.enable {
+  assertions = [{
+    assertion = cfg.exitAngle < cfg.enterAngle;
+    message = "hardware.asusfix.tabletMode.exitAngle must be lower than enterAngle.";
+  }];
+
   boot.extraModprobeConfig = ''
     options asus_nb_wmi tablet_mode_sw=2
   '';
@@ -36,7 +55,12 @@ lib.mkIf config.hardware.asusfix.tabletMode.enable {
     wantedBy = [ "multi-user.target" ];
     after = [ "systemd-udev-settle.service" ];
     serviceConfig = {
-      ExecStart = "${pythonEnv}/bin/python3 ${./hinge-tablet-mode.py}";
+      ExecStart = lib.escapeShellArgs [
+        "${hingeTabletMode}/bin/hinge-tablet-mode"
+        "--enter" (toString cfg.enterAngle)
+        "--exit" (toString cfg.exitAngle)
+        "--poll-ms" (toString cfg.pollIntervalMs)
+      ];
       Restart = "on-failure";
       RestartSec = 2;
     };

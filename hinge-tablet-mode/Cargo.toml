@@ -1,0 +1,14 @@
+[package]
+name = "hinge-tablet-mode"
+version = "0.1.0"
+edition = "2021"
+description = "Virtual SW_TABLET_MODE switch driven by the IIO hinge angle (ASUS Vivobook TP3407SA)"
+license = "GPL-3.0-only"
+
+# No dependencies on purpose: keeps the Nix build and the closure tiny.
+[dependencies]
+
+[profile.release]
+opt-level = "s"
+lto = true
+strip = true
