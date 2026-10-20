@@ -9,7 +9,7 @@ let
   #   name   "ASUS Vivobook 14 Flip TP3407SA_TP3407SA" = a5460864
   ishFirmware = pkgs.runCommand "ish-firmware" { } ''
     mkdir -p $out/intel/ish
-    cp ${./firmware/ish/ish_lnlm_ef534c00_a5460864.bin} \
+    cp ${./firmware/ish_lnlm_ef534c00_a5460864.bin} \
        $out/intel/ish/ish_lnlm_ef534c00_a5460864.bin
   '';
 in
