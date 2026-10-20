@@ -38,7 +38,7 @@ in
     graphics.enable     = feature "Intel GPU acceleration (media driver, compute runtime, VPL).";
 
     # A preference rather than a fix, so it is not part of enableALLchanges.
-    fnlock.multimedia = lib.mkOption {
+    fnlock.multimedia.enable = lib.mkOption {
       type = lib.types.bool;
       default = false;
       description = ''
