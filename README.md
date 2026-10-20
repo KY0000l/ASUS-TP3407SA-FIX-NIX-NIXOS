@@ -102,4 +102,3 @@ The module uses your own `nixpkgs`, so you don't need `inputs.nixpkgs.follows`.
 - **Recent nixpkgs required.** `hardware.cpu.intel.npu.enable` only exists in recent nixpkgs; `nixos-unstable` is the safe choice.
 - **Kernel.** `enableALLchanges` selects `linuxPackages_latest` (as a default) since Lunar Lake needs a recent kernel. Override it with `boot.kernelPackages` if you want.
 - **Power profiles.** `power-profiles-daemon` is enabled by default under `powerSaving`. To use TLP instead, set `services.power-profiles-daemon.enable = false;` and enable TLP yourself. Don't run both.
-- **Not touched by this module:** bootloader, Plymouth theme, LUKS/TPM setup, IOMMU parameters, and sudo/security settings. Those are yours to configure.
