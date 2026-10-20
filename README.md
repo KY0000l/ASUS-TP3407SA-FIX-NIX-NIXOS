@@ -6,4 +6,4 @@ What options (when I add support)
 - Tablet mode/auto rotation/Lid detection
 - Adds xe driver to initrd to stop plymouth DRM conflicts
 - Changes power saving behavior
-hardware.asusfix.enableALLchanges = true; can be used to enable all of these changes, additionally it enables/requires the use of unfree software, if you are okay with this, enable this option.
+hardware.asusfix.enableALLchanges = true; can be used to enable all of these changes, additionally it enables/requires the use of unfree blobs, if you are okay with this, enable this option.
