@@ -7,7 +7,7 @@ My Vivobook is poorly supported on NixOS, so I collected my changes into a modul
 # PLEASE AT LEAST READ THIS
  This project is designed for maximum compatibility and nothing else!
  Changes when all modules are enabled include
-- Systemd initrd
+- Systemd initrd (is harmless, unless you hate systemd)
 - Modified kernel parameters and initrd
 - Directly addressing memory over i2c
 - Enabling unfree software and injecting binary blobs on boot
