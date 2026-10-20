@@ -109,7 +109,7 @@ The module uses your own `nixpkgs`, so you don't need `inputs.nixpkgs.follows`.
 
 ## Notes
 
-- **Speaker fix writes to the amplifier chips directly.** It runs at boot as a oneshot service (`asus-sound-fix.service`) and sends a fixed register sequence to the two TAS2781 chips over I2C, bypassing the kernel driver. It is made for the TP3407SA board; don't enable it on other models unless you know they match. Check it with `systemctl status asus-sound-fix`.
+- **Speaker fix writes to the amplifier chips directly.** It runs at boot and resume as a oneshot service (`asus-sound-fix.service`) and sends a fixed register sequence to the two TAS2781 chips over I2C, bypassing the kernel driver. It is made for the TP3407SA board; don't enable it on other models unless you know they match. Check it with `systemctl status asus-sound-fix`.
 - **Tablet mode switches your initrd to systemd.** The ISH firmware has to be inside the initrd, so `tabletMode.enable` sets `boot.initrd.systemd.enable = lib.mkDefault true`. If your LUKS setup depends on the scripted initrd, check it before enabling.
 - **Recent nixpkgs required.** `hardware.cpu.intel.npu.enable` only exists in recent nixpkgs; `nixos-unstable` is the safe choice.
 - **Kernel.** `enableALLchanges` selects `linuxPackages_latest` (as a default) since Lunar Lake needs a recent kernel. Override it with `boot.kernelPackages` if you want.
