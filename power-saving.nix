@@ -1,7 +1,7 @@
 { config, lib, ... }:
 
 lib.mkIf config.hardware.asusfix.powerSaving.enable {
-  boot.kernelParams = [ "pcie_aspm.policy=powersave" ];
+  boot.kernelParams = [ "pcie_aspm.policy=powersave" "intel_pstate=passive" ];
   boot.kernel.sysctl."kernel.nmi_watchdog" = 0;
 
   powerManagement.enable = true;
