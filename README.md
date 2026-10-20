@@ -4,9 +4,9 @@ NixOS module with fixes for the **ASUS Vivobook 14 Flip TP3407SA** (Intel Lunar 
 
 My Vivobook is poorly supported on NixOS, so I collected my changes into a module that others can use too. Every fix is its own switch, so you can enable only what you want.
 
-PLEASE AT LEAST READ THIS
-This project is designed for maximum compatibility and nothing else!
-Changes when all modules are enabled include
+# PLEASE AT LEAST READ THIS
+# This project is designed for maximum compatibility and nothing else!
+# Changes when all modules are enabled include
 - Systemd initrd
 - Modified kernel parameters and initrd
 - Directly addressing memory over i2c
