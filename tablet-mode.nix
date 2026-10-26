@@ -39,7 +39,7 @@ lib.mkIf cfg.enable {
 
   # The ISH probes in the initrd, before the real root is mounted, so the
   # firmware has to ship inside the initrd. That needs the systemd initrd.
-  boot.initrd.systemd.enable = lib.mkDefault true;
+  boot.initrd.enable = lib.mkDefault true;
   boot.initrd.systemd.contents."/etc/ish-firmware".source = "${ishFirmware}/lib/firmware";
   boot.kernelParams = [ "firmware_class.path=/etc/ish-firmware" ];
   # Also available after boot, in case the ISH driver is reloaded.
