@@ -29,7 +29,8 @@ lib.mkIf config.hardware.asusfix.powerSaving.enable {
     CPU_HWP_DYN_BOOST_ON_BAT = 0;
 
     PLATFORM_PROFILE_ON_AC = "performance";
-    PLATFORM_PROFILE_ON_BAT = "low-power";
+    PLATFORM_PROFILE_ON_BAT = "quiet";
+    PLATFORM_PROFILE_ON_SAV = "quiet";  
 
     PCIE_ASPM_ON_AC = "default";
     PCIE_ASPM_ON_BAT = "powersupersave";
